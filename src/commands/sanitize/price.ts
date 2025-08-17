@@ -31,6 +31,12 @@ export function sanitizePrice(
 
   if (data["currency_options"]) {
     delete data["currency_options"][data.currency];
+    for (const currencyCode in data["currency_options"]) {
+      const currencyOption = data["currency_options"][currencyCode];
+      if ("unit_amount_decimal" in currencyOption) {
+        delete (currencyOption as any)["unit_amount_decimal"];
+      }
+    }
   }
 
   if (data['custom_unit_amount']) {
